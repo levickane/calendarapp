@@ -10,4 +10,6 @@ for (let i = 0; i < 9; i++) {
     <div class="saveBtn col-2"><i style='font-size:24px' class='fas'>&#xf0c7;</i></div>
     </div>`)
   timeBlockContainer.append(timeBlockDiv)
+  var hourDiv = $('.hour')
+  hourDiv.text(moment().format('LT'))
 }
