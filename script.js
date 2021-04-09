@@ -3,11 +3,6 @@ currentDay.text(moment().format('dddd, MMMM Do'))
 
 var timeBlockContainer = $('.container')
 var currHour = moment().format('hA')
-var startHour = moment()
-var endHour = moment()
-
-console.log(startHour)
-console.log(endHour)
 
 for (var i = 9; i < 19; i++) {
   var amOrPm = moment().format(`${i}`)
