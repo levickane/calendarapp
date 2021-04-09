@@ -2,44 +2,33 @@ var currentDay = $('#currentDay')
 currentDay.text(moment().format('dddd, MMMM Do'))
 
 var timeBlockContainer = $('.container')
-var currHour = moment().format('HH')
+var currHour = moment().format('hA')
+var startHour = moment()
+var endHour = moment()
 
-for (var i = 9; i < 24; i++) {
+console.log(startHour)
+console.log(endHour)
+
+for (var i = 9; i < 19; i++) {
+  var amOrPm = moment().format(`${i}`)
   var timeBlockDiv = $(`<div class="time-block row">
-    <div class="hour col-1">${i}</div>
+    <div class="hour col-1">${amOrPm}${amOrPm >= 12 ? 'PM' : 'AM'}</div>
     <textarea class="description col-10" id="${i}"></textarea>
     <button class="saveBtn col-1" id='saveBtn${i}' type="submit"><i style='font-size:24px' class='fas'>&#xf0c7;</i></div>
-    </button>`)
+    </button>
+    </div>`)
   timeBlockContainer.append(timeBlockDiv)
-}
-
-for (var i = 9; i < 24; i++) {
   var textAreaEl = $(`#${i}`)
-  if (currHour == textAreaEl.attr('id')) {
+  var saveBtn = $(`#saveBtn${i}`)
+
+  if (parseInt(textAreaEl.attr('id')) == parseInt(currHour)) {
     textAreaEl.addClass('present')
-  }
-}
-
-for (var i = 9; i < 24; i++) {
-  var textAreaEl = $(`#${i}`)
-  if (textAreaEl.attr('id') < currHour) {
+  } else if (parseInt(textAreaEl.attr('id')) < parseInt(currHour)) {
     textAreaEl.addClass('past')
-  }
-}
-
-for (var i = 9; i < 24; i++) {
-  var textAreaEl = $(`#${i}`)
-  if (textAreaEl.attr('id') > currHour) {
+  } else if (parseInt(textAreaEl.attr('id')) > parseInt(currHour)) {
     textAreaEl.addClass('future')
   }
-}
-
-for (var i = 9; i < 24; i++) {
-  var saveBtn = $(`#saveBtn${i}`)
-  saveBtn.on('click', function () {
-    for (var i = 9; i < 24; i++) {
-      var saveBtn = $(`#saveBtn${i}`)
-      console.log(saveBtn.prev().val())
-    }
+  saveBtn.on('click', function (e) {
+    console.log(this.closest('div').children[1].value)
   })
 }
