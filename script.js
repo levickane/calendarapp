@@ -4,7 +4,7 @@ currentDay.text(moment().format('dddd, MMMM Do'))
 var timeBlockContainer = $('.container')
 var currHour = moment().format('HH')
 
-for (var i = 9; i < 19; i++) {
+for (var i = 9; i < 24; i++) {
   var timeBlockDiv = $(`<div class="time-block row">
     <div class="hour col-1">${i}</div>
     <textarea class="description col-10" id="${i}"></textarea>
@@ -13,27 +13,33 @@ for (var i = 9; i < 19; i++) {
   timeBlockContainer.append(timeBlockDiv)
 }
 
-for (var i = 9; i < 19; i++) {
+for (var i = 9; i < 24; i++) {
   var textAreaEl = $(`#${i}`)
   if (currHour == textAreaEl.attr('id')) {
     textAreaEl.addClass('present')
   }
 }
 
-for (var i = 9; i < 19; i++) {
+for (var i = 9; i < 24; i++) {
   var textAreaEl = $(`#${i}`)
   if (textAreaEl.attr('id') < currHour) {
     textAreaEl.addClass('past')
   }
 }
 
-for (var i = 9; i < 19; i++) {
+for (var i = 9; i < 24; i++) {
   var textAreaEl = $(`#${i}`)
   if (textAreaEl.attr('id') > currHour) {
     textAreaEl.addClass('future')
   }
 }
 
-for (var i = 9; i < 19; i++) {
+for (var i = 9; i < 24; i++) {
   var saveBtn = $(`#saveBtn${i}`)
+  saveBtn.on('click', function () {
+    for (var i = 9; i < 24; i++) {
+      var saveBtn = $(`#saveBtn${i}`)
+      console.log(saveBtn.prev().val())
+    }
+  })
 }
