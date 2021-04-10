@@ -6,7 +6,7 @@ var currHour = moment().format('HH')
 
 calendarDataArray = []
 
-for (var i = 9; i < 25; i++) {
+for (var i = 1; i < 25; i++) {
   var amOrPm = moment().format(`${i}`)
   var timeBlockDiv = $(`<div class="time-block row">
     <div class="hour col-1">${amOrPm}${amOrPm >= 12 ? 'PM' : 'AM'}</div>
@@ -26,17 +26,19 @@ for (var i = 9; i < 25; i++) {
     textAreaEl.addClass('future')
   }
   saveBtn.on('click', function (e) {
-    // console.log(this.closest('div').children[1].value)
-    //localstorage
     calData = this.closest('div').children[1].value
+    //localstorage
     calendarDataArray.push(calData)
     localStorage.setItem('calendarData', JSON.stringify(calendarDataArray))
-    // console.log(calendarDataArray)
   })
+  var storedCalendarData = JSON.parse(localStorage.getItem('calendarData'))
+  if (storedCalendarData !== null) {
+    calendarDataArray = storedCalendarData
+  }
+  //   function test() {
+  //     console.log(textAreaEl.text(storedCalendarData))
+  //   }
 }
 
-var storedCalendarData = JSON.parse(localStorage.getItem('calendarData'))
+// calendarDataArray.forEach(test)
 console.log(storedCalendarData)
-if (storedCalendarData !== null) {
-  calendarDataArray = storedCalendarData
-}
