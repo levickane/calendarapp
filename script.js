@@ -4,9 +4,9 @@ currentDay.text(moment().format('dddd, MMMM Do'))
 var timeBlockContainer = $('.container')
 var currHour = moment().format('HH')
 
-calendarDataArray = []
+calendarDataArray = {}
 
-for (var i = 1; i < 25; i++) {
+for (let i = 1; i < 25; i++) {
   var amOrPm = moment().format(`${i}`)
   var timeBlockDiv = $(`<div class="time-block row">
     <div class="hour col-1">${amOrPm}${amOrPm >= 12 ? 'PM' : 'AM'}</div>
@@ -27,18 +27,19 @@ for (var i = 1; i < 25; i++) {
   }
   saveBtn.on('click', function (e) {
     calData = this.closest('div').children[1].value
+    console.log(calData)
     //localstorage
-    calendarDataArray.push(calData)
+    calendarDataArray[i] = calData
     localStorage.setItem('calendarData', JSON.stringify(calendarDataArray))
   })
-  var storedCalendarData = JSON.parse(localStorage.getItem('calendarData'))
-  if (storedCalendarData !== null) {
-    calendarDataArray = storedCalendarData
+  calendarDataArray = JSON.parse(localStorage.getItem('calendarData')) ?? {}
+
+  console.log(Object.keys(calendarDataArray))
+  console.log(typeof Object.keys(calendarDataArray)[0])
+  if (Object.keys(calendarDataArray).includes(`${i}`)) {
+    console.log('hello')
+    textAreaEl.val(calendarDataArray[i])
   }
-  //   function test() {
-  //     console.log(textAreaEl.text(storedCalendarData))
-  //   }
 }
 
-// calendarDataArray.forEach(test)
-console.log(storedCalendarData)
+console.log(calendarDataArray)
